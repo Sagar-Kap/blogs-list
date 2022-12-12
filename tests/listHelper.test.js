@@ -61,6 +61,19 @@ const blogs = [
   },
 ];
 
+const listofFavBlogs = {
+  title: "Canonical string reduction",
+  author: "Edsger W. Dijkstra",
+  likes: 12,
+};
+
+const listOfFavOneBlog = {
+  title: "Go To Statement Considered Harmful",
+  author: "Edsger W. Dijkstra",
+
+  likes: 5,
+};
+
 test("dummy returns one", () => {
   const blogs = [
     {
@@ -80,7 +93,6 @@ test("dummy returns one", () => {
 describe("total likes", () => {
   test("When list has only one blog, equals the likes of that", () => {
     const result = listHelper.totalLikes(listWithOneBlog);
-    console.log(result);
     expect(result).toBe(5);
   });
 
@@ -93,20 +105,23 @@ describe("total likes", () => {
 describe("favourite blog", () => {
   test("Favourite bog when list has only one blog", () => {
     const result = listHelper.favoriteBlog(listWithOneBlog);
-    expect(result).toEqual({
-      title: "Go To Statement Considered Harmful",
-      author: "Edsger W. Dijkstra",
-
-      likes: 5,
-    });
+    expect(result).toEqual(listOfFavOneBlog);
   });
 
   test("Favourite blog when list has more blogs", () => {
     const result = listHelper.favoriteBlog(blogs);
-    expect(result).toEqual({
-      title: "Canonical string reduction",
-      author: "Edsger W. Dijkstra",
-      likes: 12,
-    });
+    expect(result).toEqual(listofFavBlogs);
+  });
+});
+
+describe("The top blogger", () => {
+  test("Top blogger with only one blog", () => {
+    const result = listHelper.mostBlogs(listWithOneBlog);
+    expect(result).toEqual({ author: "Edsger W. Dijkstra", blogs: 1 });
+  });
+
+  test("Top bloggers with many entries", () => {
+    const result = listHelper.mostBlogs(blogs);
+    expect(result).toEqual({ author: "Robert C. Martin", blogs: 3 });
   });
 });

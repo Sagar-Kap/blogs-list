@@ -143,3 +143,7 @@ describe("The most likes received", () => {
     });
   });
 });
+
+module.exports = {
+  blogs,
+};

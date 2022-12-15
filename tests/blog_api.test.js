@@ -47,6 +47,23 @@ describe("Addition of a new blog", () => {
 
     expect(response.body).toHaveLength(helper.blogs.length + 1);
   });
+
+  test("likes value defaults to 0 if property missing", async () => {
+    const newBlog = {
+      title: "0 to hero",
+      author: "0 liker",
+      url: "asjehjsdfsd.com",
+    };
+
+    await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+    const blogsLast = await helper.blogsDb();
+    expect(blogsLast).toHaveLength(helper.blogs.length + 1);
+    expect(blogsLast[blogsLast.length - 1].likes).toBe(0);
+  });
 });
 
 afterAll(() => {

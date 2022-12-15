@@ -64,6 +64,17 @@ describe("Addition of a new blog", () => {
     expect(blogsLast).toHaveLength(helper.blogs.length + 1);
     expect(blogsLast[blogsLast.length - 1].likes).toBe(0);
   });
+
+  test("missing URL and title", async () => {
+    const newBlog = {
+      likes: 9,
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(400);
+
+    const blogsInDb = await helper.blogsDb();
+    expect(blogsInDb).toHaveLength(helper.blogs.length);
+  });
 });
 
 afterAll(() => {

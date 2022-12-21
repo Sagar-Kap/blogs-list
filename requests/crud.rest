@@ -24,3 +24,16 @@ Content-Type: application/json
 {
     "likes" : "100"
 }
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username" : "Mswda",
+    "name" : "Rasdasdja",
+    "password" : "lalaRaja"
+}
+
+###
+GET http://localhost:3003/api/users

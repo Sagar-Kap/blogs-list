@@ -3,6 +3,7 @@ GET http://localhost:3003/api/blogs
 ###
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1zd2RhIiwiaWQiOiI2M2EyOGM0ZDgyMTJkMjIzM2I1YWZjNGMiLCJpYXQiOjE2NzE4MDczNTR9.g2m1pgq_iYM_nSlUp3Bbq8UygXJNHRz0Ee744XKZoRI
 
 {
     "title": "Bau muumhe?",
@@ -29,6 +30,7 @@ Content-Type: application/json
 ###
 POST http://localhost:3003/api/users
 Content-Type: application/json
+
 
 {
     "username" : "Mswda",

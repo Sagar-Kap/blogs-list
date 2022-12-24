@@ -6,7 +6,7 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1zd2RhIiwiaWQiOiI2M2EyOGM0ZDgyMTJkMjIzM2I1YWZjNGMiLCJpYXQiOjE2NzE4MDczNTR9.g2m1pgq_iYM_nSlUp3Bbq8UygXJNHRz0Ee744XKZoRI
 
 {
-    "title": "Bau muumhe?",
+    "title": "muumhe?",
     "author" : "Rajkjkjm",
     "url": "loarolaljkjka.com/ghochu",
     "likes": "787",

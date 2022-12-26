@@ -1,8 +1,8 @@
 const blogsRouter = require("express").Router();
 const Blog = require("../models/blog");
-const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const config = require("../utils/config");
+const mongoose = require("mongoose");
 
 blogsRouter.get("/", async (request, response) => {
   const blogs = await Blog.find({}).populate("user", {
@@ -13,7 +13,7 @@ blogsRouter.get("/", async (request, response) => {
   if (blogs) {
     response.json(blogs);
   } else {
-    response.status(404).end();
+    response.status(400).end();
   }
 });
 
@@ -59,6 +59,10 @@ blogsRouter.delete("/:id", async (request, response) => {
   const blog = await Blog.findById(id);
   const user = request.user;
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return response.status(400).json({ error: "invalid ID" });
+  }
+
   if (blog.user.toString() === user.id.toString()) {
     await Blog.deleteOne({ _id: id });
     response.sendStatus(204).end();
@@ -68,6 +72,10 @@ blogsRouter.delete("/:id", async (request, response) => {
 });
 
 blogsRouter.get("/:id", async (request, response) => {
+  const id = request.params.id;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return response.status(400).json({ error: "invalid ID" });
+  }
   const blog = await Blog.findById(request.params.id);
 
   if (blog) {
@@ -78,6 +86,10 @@ blogsRouter.get("/:id", async (request, response) => {
 });
 
 blogsRouter.put("/:id", async (request, response) => {
+  if (!mongoose.Types.ObjectId.isValid(request.params.id)) {
+    return response.status(400).json({ error: "invalid ID" });
+  }
+
   const { likes } = request.body;
   console.log({ likes });
   const updateBlog = await Blog.findByIdAndUpdate(

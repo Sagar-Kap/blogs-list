@@ -10,6 +10,7 @@ blogsRouter.get("/", async (request, response) => {
     name: 1,
     id: 1,
   });
+
   if (blogs) {
     response.json(blogs);
   } else {
@@ -20,7 +21,14 @@ blogsRouter.get("/", async (request, response) => {
 blogsRouter.post("/", async (request, response) => {
   const body = request.body;
   const token = request.token;
-  const decodedToken = jwt.verify(token, config.SECRET);
+  console.log(token);
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(token, config.SECRET);
+  } catch (error) {
+    return response.status(401).json({ error: "token missing or invalid" });
+  }
+
   if (!decodedToken.id) {
     return response.status(401).json({ error: "token missing or invalid" });
   }

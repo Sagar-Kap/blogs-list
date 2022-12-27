@@ -3,6 +3,7 @@ const Blog = require("../models/blog");
 const jwt = require("jsonwebtoken");
 const config = require("../utils/config");
 const mongoose = require("mongoose");
+const middleware = require("../utils/middleware");
 
 blogsRouter.get("/", async (request, response) => {
   const blogs = await Blog.find({}).populate("user", {
@@ -21,12 +22,12 @@ blogsRouter.get("/", async (request, response) => {
 blogsRouter.post("/", async (request, response) => {
   const body = request.body;
   const token = request.token;
-  console.log(token);
+
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, config.SECRET);
   } catch (error) {
-    return response.status(401).json({ error: "token missing or invalid" });
+    return response.status(401).json({ error: "Invalid Token" });
   }
 
   if (!decodedToken.id) {

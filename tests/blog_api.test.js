@@ -104,13 +104,13 @@ describe("Addition of a new blog", () => {
       url: "asjjsdfsd.com",
       likes: 8989,
     };
-    const unauthorized = "asdadas";
+    const unauthorized = "asdadasdfgfhgfhththgfhgfh12";
 
     await api
       .post("/api/blogs")
       .set("Authorization", `Bearer ${unauthorized}`)
       .send(newBlog)
-      .expect(201);
+      .expect(401);
 
     const blogsInDb = await helper.blogsDb();
     expect(blogsInDb).toHaveLength(helper.blogs.length);
